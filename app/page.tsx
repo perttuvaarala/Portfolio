@@ -1,9 +1,14 @@
+import About from "./_components/About";
+import Hero from "./_components/Hero";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <main className="flex flex-col items-center justify-center">
-        <div className="text-xl font-semibold">PV:n sivut</div>
-      </main>
-    </div>
+    <main className="mx-auto w-full max-w-3xl px-6">
+      <Hero />
+      <About />
+      {/* Placeholders so the hero buttons have anchor targets; filled in later. */}
+      <section id="projects" aria-label="Projects" className="scroll-mt-8" />
+      <section id="contact" aria-label="Contact" className="scroll-mt-8" />
+    </main>
   );
 }
