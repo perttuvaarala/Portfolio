@@ -28,11 +28,9 @@ export default function Hero() {
       >
         Perttu Vaarala
       </h1>
-      <p className="mt-3 text-2xl font-semibold sm:text-3xl">
-        Software Engineer
-      </p>
-      <p className="mt-2 text-base text-foreground/70 sm:text-lg">
-        ICT engineer · Computer Science Master&apos;s student at Aalto University
+      <p className="mt-3 text-base text-foreground/70 sm:text-lg">
+        Software Engineer · Computer Science Master&apos;s student at Aalto
+        University
       </p>
       <p className="mt-6 max-w-prose text-lg leading-relaxed">
         I build web applications and APIs, and I care about making them secure,
@@ -45,6 +43,12 @@ export default function Hero() {
           className={`${buttonBase} ${focusRing} bg-foreground text-background hover:bg-foreground/85`}
         >
           View projects
+        </a>
+        <a
+          href="#about"
+          className={`${buttonBase} ${focusRing} border border-foreground/20 hover:bg-foreground/5`}
+        >
+          About
         </a>
 
         <ul className="mt-2 flex gap-2 sm:mt-0 sm:ml-2">
