@@ -21,10 +21,7 @@ const socialLinks = [
 
 export default function Hero() {
   return (
-    <section
-      aria-labelledby="hero-heading"
-      className="flex min-h-[80vh] flex-col justify-center py-16"
-    >
+    <section aria-labelledby="hero-heading" className="pt-24 pb-8 sm:pt-32">
       <h1
         id="hero-heading"
         className="text-4xl font-bold tracking-tight sm:text-5xl"
@@ -48,12 +45,6 @@ export default function Hero() {
           className={`${buttonBase} ${focusRing} bg-foreground text-background hover:bg-foreground/85`}
         >
           View projects
-        </a>
-        <a
-          href="#contact"
-          className={`${buttonBase} ${focusRing} border border-foreground/20 hover:bg-foreground/5`}
-        >
-          Contact me
         </a>
 
         <ul className="mt-2 flex gap-2 sm:mt-0 sm:ml-2">
