@@ -84,19 +84,22 @@ export default function Projects() {
       <h2 id="projects-heading" className="text-2xl font-semibold sm:text-3xl">
         Projects
       </h2>
-      <ul className="mt-6 space-y-10">
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {projects.map((project) => (
-          <li key={project.name}>
+          <li
+            key={project.name}
+            className="flex flex-col rounded-lg border border-foreground/15 p-5"
+          >
             <h3 className="text-xl font-semibold">{project.name}</h3>
             {project.isGroupProject && (
               <p className="mt-1 text-sm text-foreground/70">Group project</p>
             )}
-            <p className="mt-2 max-w-prose text-lg leading-relaxed">
+            <p className="mt-2 max-w-prose text-base leading-relaxed">
               {project.description}
             </p>
             <ul
               aria-label={`${project.name} technologies`}
-              className="mt-3 flex flex-wrap gap-2"
+              className="mt-3 mb-4 flex flex-wrap gap-2"
             >
               {project.tech.map((item) => (
                 <li
@@ -112,7 +115,7 @@ export default function Projects() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.name} on GitHub`}
-              className={`${focusRing} mt-3 inline-block rounded-sm font-medium underline underline-offset-4 hover:text-foreground/70`}
+              className={`${focusRing} mt-auto self-start rounded-sm font-medium underline underline-offset-4 hover:text-foreground/70`}
             >
               GitHub
             </a>
