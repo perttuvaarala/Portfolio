@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
+/* Make Tailwind's dark: classes follow the toggle instead of the OS setting. */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,11 +16,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Without JavaScript, data-theme is never set, so the OS setting decides. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
