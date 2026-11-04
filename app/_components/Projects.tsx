@@ -1,3 +1,11 @@
+import Image, { type StaticImageData } from "next/image";
+import catchMasterLogo from "./project-logos/catchmaster.png";
+import exploreHelsinkiLogo from "./project-logos/explore-helsinki.png";
+import impulsePassLogo from "./project-logos/impulsepass.png";
+import jobelLogo from "./project-logos/jobel.png";
+import skiResortLogo from "./project-logos/ski-resort.png";
+import voteSmartLogo from "./project-logos/votesmart.png";
+
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground";
 
@@ -6,6 +14,9 @@ type Project = {
   description: string;
   tech: string[];
   repoUrl: string;
+  logo?: StaticImageData;
+  // Adjusts logos that would be too dark to see on the dark theme.
+  darkLogoClass?: string;
   isGroupProject?: boolean;
 };
 
@@ -16,6 +27,7 @@ const projects: Project[] = [
       "Blockchain-based polling app built on smart contracts and deployed on the Polygon Amoy test network.",
     tech: ["Solidity", "Hardhat", "Next.js", "TypeScript", "wagmi"],
     repoUrl: "https://github.com/perttuvaarala/VoteSmart",
+    logo: voteSmartLogo,
   },
   {
     name: "CatchMaster",
@@ -31,6 +43,8 @@ const projects: Project[] = [
       "Jest",
     ],
     repoUrl: "https://github.com/perttuvaarala/CatchMaster",
+    logo: catchMasterLogo,
+    darkLogoClass: "dark:invert",
     isGroupProject: true,
   },
   {
@@ -39,6 +53,7 @@ const projects: Project[] = [
       "A place to share your thoughts anonymously. Built for a web development course at Metropolia UAS.",
     tech: ["React", "TypeScript", "Express", "MongoDB", "Docker"],
     repoUrl: "https://github.com/perttuvaarala/jobel",
+    logo: jobelLogo,
     isGroupProject: true,
   },
   {
@@ -47,6 +62,7 @@ const projects: Project[] = [
       "Desktop app for following how kide.app events change over time. Users can save events to a personal list and get notified about event and ticket sale dates. Localized into three languages.",
     tech: ["Java 17", "JavaFX", "Maven", "MongoDB", "MariaDB"],
     repoUrl: "https://github.com/perttuvaarala/ImpulsePass",
+    logo: impulsePassLogo,
     isGroupProject: true,
   },
   {
@@ -55,6 +71,7 @@ const projects: Project[] = [
       "Three-phase simulation of a ski resort that visualizes service points and customer queues. Users can adjust the parameters, and results are saved to a database. Built for a Metropolia course.",
     tech: ["Java", "SQL", "MVC"],
     repoUrl: "https://github.com/perttuvaarala/laskettelukeskus",
+    logo: skiResortLogo,
     isGroupProject: true,
   },
   {
@@ -70,9 +87,20 @@ const projects: Project[] = [
       "Multi-page website about Helsinki with a Wi-Fi map, events, practical tips and a promotional video.",
     tech: ["HTML", "CSS", "JavaScript"],
     repoUrl: "https://github.com/perttuvaarala/ExploreHelsinki",
+    logo: exploreHelsinkiLogo,
+    darkLogoClass: "dark:brightness-[2.5]",
     isGroupProject: true,
   },
 ];
+
+// Fits a logo inside a 120×32px box, so square and wide logos both look balanced.
+function fitLogo({ width, height }: StaticImageData) {
+  const scale = Math.min(120 / width, 32 / height);
+  return {
+    width: Math.round(width * scale),
+    height: Math.round(height * scale),
+  };
+}
 
 export default function Projects() {
   return (
@@ -90,10 +118,29 @@ export default function Projects() {
             key={project.name}
             className="flex flex-col rounded-lg border border-foreground/15 p-5"
           >
-            <h3 className="text-xl font-semibold">{project.name}</h3>
-            {project.isGroupProject && (
-              <p className="mt-1 text-sm text-foreground/70">Group project</p>
-            )}
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-xl font-semibold">{project.name}</h3>
+                {project.isGroupProject && (
+                  <p className="mt-1 text-sm text-foreground/70">
+                    Group project
+                  </p>
+                )}
+              </div>
+              {project.logo && (
+                // This box can shrink, so a wide logo gives way to the name on
+                // narrow cards.
+                <div className="flex h-10 min-w-10 items-center justify-end">
+                  {/* Decorative: the project name is right beside it. */}
+                  <Image
+                    src={project.logo}
+                    alt=""
+                    {...fitLogo(project.logo)}
+                    className={`min-w-0 rounded-sm ${project.darkLogoClass ?? ""}`}
+                  />
+                </div>
+              )}
+            </div>
             <p className="mt-2 max-w-prose text-base leading-relaxed">
               {project.description}
             </p>
